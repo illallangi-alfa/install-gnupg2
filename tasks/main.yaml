@@ -1,0 +1,17 @@
+---
+- name: "Fail if OS/Architecture is not supported"
+  fail:
+    msg: "Installing gnupg2 on {{ (ansible_os_family | lower) + '_' + (ansible_architecture | lower) }} is unsupported."
+  when:
+    - "(install_gnupg2_packages | default({}))[(ansible_os_family | lower) + '_' + (ansible_architecture | lower)] is not defined"
+    - "gnupg2 is defined"
+  tags:
+    - "gnupg2"
+- name: "Install gnupg2"
+  package:
+    pkg: "{{ install_gnupg2_packages[(ansible_os_family | lower) + '_' + (ansible_architecture | lower)] }}"
+    state: "present"
+  when:
+    - "gnupg2 is defined"
+  tags:
+    - "gnupg2"
