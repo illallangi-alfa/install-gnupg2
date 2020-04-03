@@ -1,6 +1,6 @@
 ---
 install_gnupg2_packages:
-  common: &common
+  debian: &debian
     - "gnupg2"
-  debian_armv7l: *common
-  redhat_x86_64: *common
+  debian_armv7l: *debian
+  debian_x86_64: *debian
